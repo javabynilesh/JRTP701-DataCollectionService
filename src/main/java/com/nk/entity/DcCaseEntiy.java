@@ -14,9 +14,8 @@ public class DcCaseEntiy {
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.AUTO)
-		private Long caseId;
+		//private Long caseId;
 		private Integer caseNo;
 		private Long appId;
 		private Integer planId;
-		
 }
