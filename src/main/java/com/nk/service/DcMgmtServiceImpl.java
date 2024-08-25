@@ -15,8 +15,8 @@ import com.nk.binding.EducationInputs;
 import com.nk.binding.IncomeInputs;
 import com.nk.binding.PlanSelectionInputs;
 import com.nk.entity.CitizenAppRegistrationEntity;
-import com.nk.entity.DcCaseEntiy;
-import com.nk.entity.DcChildrenEntiy;
+import com.nk.entity.DcCaseEntity;
+import com.nk.entity.DcChildrenEntity;
 import com.nk.entity.DcEducationEntity;
 import com.nk.entity.DcIncomeEntity;
 import com.nk.entity.PlanEntity;
@@ -47,7 +47,7 @@ public class DcMgmtServiceImpl implements IDcMgmtService {
 		// load citizen data
 		Optional<CitizenAppRegistrationEntity> appCitizen = citizenAppRepo.findById(appId);
 		if (appCitizen.isPresent()) {
-			DcCaseEntiy caseEntity = new DcCaseEntiy();
+			DcCaseEntity caseEntity = new DcCaseEntity();
 			caseEntity.setAppId(appId);
 			return caseRepo.save(caseEntity).getCaseNo(); // save obj operation
 		}
@@ -63,9 +63,9 @@ public class DcMgmtServiceImpl implements IDcMgmtService {
 	@Override
 	public Integer savePlanSelection(PlanSelectionInputs plan) {
 		// load DcCaseEntity object
-		Optional<DcCaseEntiy> opt = caseRepo.findById(plan.getCaseNo());
+		Optional<DcCaseEntity> opt = caseRepo.findById(plan.getCaseNo());
 		if (opt.isPresent()) {
-			DcCaseEntiy caseEntity = opt.get();
+			DcCaseEntity caseEntity = opt.get();
 			caseEntity.setPlanId(plan.getPlanId());
 			// update the DcCaseEntity with plaN Id
 			caseRepo.save(caseEntity); // update obj operation
@@ -100,7 +100,7 @@ public class DcMgmtServiceImpl implements IDcMgmtService {
 	public Integer saveChildrenDetails(List<ChildInputs> children) {
 		// convert each binding class obj to each entity class obj
 		children.forEach(child -> {
-			DcChildrenEntiy childEntiy = new DcChildrenEntiy();
+			DcChildrenEntity childEntiy = new DcChildrenEntity();
 			BeanUtils.copyProperties(child, childEntiy);
 			// save each eanity obj
 			childrenRepo.save(childEntiy);
@@ -114,12 +114,12 @@ public class DcMgmtServiceImpl implements IDcMgmtService {
 		// get multiple entity obj based on caseNo
 		DcIncomeEntity incomeEnitity = incomeRepo.findByCaseNo(caseNo);
 		DcEducationEntity educationEntity = educationRepo.findByCaseNo(caseNo);
-		List<DcChildrenEntiy> childEntityList = childrenRepo.findByCaseNo(caseNo);
-		Optional<DcCaseEntiy> optCaseEntity = caseRepo.findById(caseNo);
+		List<DcChildrenEntity> childEntityList = childrenRepo.findByCaseNo(caseNo);
+		Optional<DcCaseEntity> optCaseEntity = caseRepo.findById(caseNo);
 		String planName = null;
 		Long appId = null;
 		if (optCaseEntity.isPresent()) {
-			DcCaseEntiy caseEntity = optCaseEntity.get();
+			DcCaseEntity caseEntity = optCaseEntity.get();
 			Integer planId = caseEntity.getPlanId();
 			appId = caseEntity.getAppId();
 			Optional<PlanEntity> optPlanEntity = planRepo.findById(planId);

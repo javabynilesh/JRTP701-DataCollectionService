@@ -10,7 +10,7 @@ import lombok.Data;
 @Entity
 @Table(name="JR701_DC_CASES") //1
 @Data
-public class DcCaseEntiy {
+public class DcCaseEntity {
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.AUTO)

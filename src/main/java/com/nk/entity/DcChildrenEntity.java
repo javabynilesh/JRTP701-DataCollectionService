@@ -12,7 +12,7 @@ import lombok.Data;
 @Entity
 @Table(name="JR701_DC_CHILDREN")//4
 @Data
-public class DcChildrenEntiy {
+public class DcChildrenEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer childId;
